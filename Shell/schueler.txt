@@ -1,0 +1,4 @@
+
+from sportcompetition.models import Schueler
+from django.contrib.auth.models import User
+Schueler.objects.create(nname="Mustermann", vname="Willi", klasse="7a", stufe=7, geschlecht="männlich")
