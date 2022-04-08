@@ -4,7 +4,7 @@ import math
 # Create your models here.
 
 class Schueler(models.Model):
-    schnr = models.IntegerField()
+    schnr = models.IntegerField(primary_key=True)
     nname = models.CharField(max_length=200)
     vname = models.CharField(max_length=200)
     klasse = models.CharField(max_length=20)
@@ -30,30 +30,35 @@ class Schueler(models.Model):
 
     def setSchnr(self, schnr):
         self.schnr = schnr
+        self.save()
 
     def getSchnr(self):
         return self.schnr
         
     def setNname(self, nname):
         self.nname = nname
+        self.save()
 
     def getNname(self):
         return self.nname
 
     def setVname(self, vname):
         self.vname = vname
+        self.save()
 
     def getVname(self):
         return self.vname
 
     def setKlasse(self, klasse):
         self.klasse = klasse
+        self.save()
 
     def getKlasse(self):
         return self.klasse
 
     def setStufe(self, stufe):
         self.stufe = stufe
+        self.save()
 
     def getStufe(self):
         return self.stufe
@@ -61,12 +66,14 @@ class Schueler(models.Model):
     def setGeschlecht(self, geschlecht):
         if geschlecht in ["männlich", "weiblich"]:
             self.geschlecht = geschlecht
+        self.save()
 
     def getGeschlecht(self):
         return self.geschlecht
 
     def setLauf(self, lauf):
         self.lauf = lauf
+        self.save()
 
     def getLauf(self):
         return self.lauf
@@ -88,6 +95,7 @@ class Schueler(models.Model):
                     self.punktelauf = int(((100/(self.lauf+0.24))-4.0062)/0.00656)
                 elif self.geschlecht == "männlich":
                     self.punktelauf = int(((100/(self.lauf+0.24))-4.341)/0.00676)
+        self.save()
 
     def getPunktelauf(self):
         return self.punktelauf
@@ -257,6 +265,7 @@ class Schueler(models.Model):
                         self.notelauf = 5
                     else:
                         self.notelauf = 6
+        self.save()
 
     def getNotelauf(self):
         return self.notelauf
@@ -265,6 +274,7 @@ class Schueler(models.Model):
         self.sprung1 = sprung1
         self.sprung2 = sprung2
         self.sprung3 = sprung3
+        self.save()
 
     def getSprung(self):
         return [self.sprung1, self.sprung2, self.sprung3]
@@ -276,6 +286,7 @@ class Schueler(models.Model):
                 spr.append(wert)
         if len(spr) != 0:
             self.bestsprung = max(spr)
+        self.save()
 
     def getBestsprung(self):
         return self.bestsprung
@@ -286,6 +297,7 @@ class Schueler(models.Model):
                 self.punktesprung = int((math.sqrt(self.bestsprung)-1.15028)/0.00219)
             elif self.geschlecht == "weiblich":
                 self.punktesprung = int((math.sqrt(self.bestsprung)-1.0935)/0.00208)
+        self.save()
 
     def getPunktesprung(self):
         return self.punktesprung
@@ -454,6 +466,7 @@ class Schueler(models.Model):
                         self.notesprung = 5
                     else:
                         self.notesprung = 6
+        self.save()
 
     def getNotesprung(self):
         return self.notesprung
@@ -462,6 +475,7 @@ class Schueler(models.Model):
         self.wurfstoss1 = wurfstoss1
         self.wurfstoss2 = wurfstoss2
         self.wurfstoss3 = wurfstoss3
+        self.save()
 
     def getWurfstoss(self):
         return [self.wurfstoss1, self.wurfstoss2, self.wurfstoss3]
@@ -474,6 +488,7 @@ class Schueler(models.Model):
                 wst.append(wert)
         if len(wst) != 0:
             self.bestwurfstoss = max(wst)
+        self.save()
 
     def getBestwurfstoss(self):
         return self.bestwurfstoss
@@ -490,6 +505,7 @@ class Schueler(models.Model):
                     self.punktewurfstoss = int((math.sqrt(self.bestwurfstoss) - 1.425) / 0.0037)
                 elif self.geschlecht == "weiblich":
                     self.punktewurfstoss = int((math.sqrt(self.bestwurfstoss) - 1.279) / 0.00398)
+        self.save()
 
     def getPunktewurfstoss(self):
         return self.punktewurfstoss
@@ -659,6 +675,7 @@ class Schueler(models.Model):
                         self.notewurfstoss = 5
                     else:
                         self.notewurfstoss = 6
+        self.save()
 
     def getNotewurfstoss(self):
         return self.notewurfstoss
@@ -673,6 +690,7 @@ class Schueler(models.Model):
             p.append(self.punktewurfstoss)
         if len(p) > 0:
             self.punktemehrkampf = sum(p)
+        self.save()
 
     def getPunktemehrkampf(self):
         return self.punktemehrkampf
@@ -687,12 +705,14 @@ class Schueler(models.Model):
         self.setPunktewurfstoss()
         self.setNotewurfstoss()
         self.setPunktemehrkampf()
+        self.save()
 
-    def init(self, schnr, nname, vname, klasse, stufe, geschlecht):
+    def __init__(self, schnr, nname, vname, klasse, stufe, geschlecht):
         self.setSchnr(schnr)
         self.setNname(nname)
         self.setVname(vname)
         self.setKlasse(klasse)
         self.setStufe(stufe)
         self.setGeschlecht(geschlecht)
+        self.save()
 
