@@ -707,12 +707,12 @@ class Schueler(models.Model):
         self.setPunktemehrkampf()
         self.save()
 
-    def __init__(self, schnr, nname, vname, klasse, stufe, geschlecht):
-        self.setSchnr(schnr)
-        self.setNname(nname)
-        self.setVname(vname)
-        self.setKlasse(klasse)
-        self.setStufe(stufe)
-        self.setGeschlecht(geschlecht)
-        self.save()
+    # def __init__(self, schnr, nname, vname, klasse, stufe, geschlecht):
+    #     self.setSchnr(schnr)
+    #     self.setNname(nname)
+    #     self.setVname(vname)
+    #     self.setKlasse(klasse)
+    #     self.setStufe(stufe)
+    #     self.setGeschlecht(geschlecht)
+    #     self.save()
 
