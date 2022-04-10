@@ -1,0 +1,13 @@
+{% extends 'sportcompetition/main.html'%}
+
+{% block title %}Sportfestserver-Login{% endblock%}
+
+{% block authForm %}
+
+<form method="post" action="">
+    {% csrf_token %}
+    {{login_form.as_p}}
+    <button type="submit">Login</button>
+</form>
+
+{% endblock %}

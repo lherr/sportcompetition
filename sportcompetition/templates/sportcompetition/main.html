@@ -3,9 +3,22 @@
 <html lang="de">
     <head>
         <meta charset="utf-8">
-        <title>Sportfestserver</title>
+        <title>{% block title %}Sportfestserver{% endblock%}</title>
     </head>
     <body>
         <h1>Sportfestserver</h1>
+        {% if request.user.is_authenticated %}
+            <p>Hallo {{request.user.username}}!</p>
+            <a href="{% url 'sportcompetition:logout'%}">Logout</a>
+            
+        {% else%}
+            <a href="{% url 'sportcompetition:login'%}">Login</a>
+        {% endif %}
+        {% block authForm %}
+
+
+
+        {% endblock %}
+        
     </body>
 </html>
