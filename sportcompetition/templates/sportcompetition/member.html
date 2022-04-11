@@ -2,3 +2,28 @@
 
 {% block title %}Sportfestserver-Memberbereich{% endblock%}
 
+{% block content %}
+{% if request.user.is_superuser%}
+<article>
+    <h1>Administration</h1>
+    <ul>
+        <li>
+            <strong>Schülerdaten einlesen!</strong>
+            <form method="post" action="">
+                {% csrf_token %}
+                {{upload_form.as_p}}
+                <p><button type="submit">Schüler anlegen!</button></p>
+            </form>
+        </li>
+        <li>
+            <strong>Schülerdaten herunterladen!</strong> 
+        </li>
+    </ul>
+    
+    
+    
+</article>
+{% else %}
+<p>Kein Superuser!</p>
+{% endif %}
+{% endblock %}

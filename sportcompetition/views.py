@@ -2,7 +2,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls.base import reverse
-from .forms import LoginForm
+from django.http import HttpResponseRedirect
+from .forms import LoginForm, UploadFileForm
+
+# Function to handle an uploaded file.
+from .lib.einlesen import handle_uploaded_file
+
 
 # Create your views here.
 
@@ -23,6 +28,7 @@ def login_view(request):
     return render(request, 'sportcompetition/login.html', {'login_form': login_form})
 
 
+    
 
 @login_required
 def main(request):
@@ -30,7 +36,14 @@ def main(request):
 
 @login_required
 def member_view(request):
-    return render(request, 'sportcompetition/member.html')
+    if request.method == 'POST':
+        upload_form = UploadFileForm(request.POST, request.FILES)
+        if upload_form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect('/success/url/')
+    else:
+        upload_form = UploadFileForm()
+    return render(request, 'sportcompetition/member.html', {'upload_form': upload_form})
 
 def logout_view(request):
     logout(request)
