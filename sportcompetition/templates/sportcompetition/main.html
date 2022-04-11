@@ -1,24 +1,33 @@
+{% load static %}
 <!DOCTYPE html>
  
 <html lang="de">
     <head>
         <meta charset="utf-8">
         <title>{% block title %}Sportfestserver{% endblock%}</title>
+        <link rel="stylesheet" href="{% static 'css/sportcompetition.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximal-scale=1">
     </head>
     <body>
-        <h1>Sportfestserver</h1>
+        
+        <div id="wrapper">
+        <br>
+        <header><h1>Auswertungsprogramm Sportfest</h1></header>
         {% if request.user.is_authenticated %}
-            <p>Hallo {{request.user.username}}!</p>
-            <a href="{% url 'sportcompetition:logout'%}">Logout</a>
-            
-        {% else%}
-            <a href="{% url 'sportcompetition:login'%}">Login</a>
+        <div id="logout">
+        <form method="post" action="{% url 'sportcompetition:logout'%}">
+            {% csrf_token %}
+            <p align="right"><button type="submit">Logout</button></p>
+        </form>
+        </div>
         {% endif %}
+        <section>
         {% block authForm %}
 
-
-
         {% endblock %}
+        </section>
         
+        <footer><p>&copy; Lutz Herrmann - 2018 bis 2022</p></footer>
+        </div>
     </body>
 </html>

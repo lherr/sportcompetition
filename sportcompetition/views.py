@@ -6,12 +6,10 @@ from .forms import LoginForm
 
 # Create your views here.
 
-def main(request):
-    return render(request, 'sportcompetition/main.html', {})
 
 def login_view(request):
     if request.user.is_authenticated:
-        return render(request, 'sportcompetition:member')
+        return render(request, 'sportcompetition/member.html')
     login_form = LoginForm()
     if request.method == "POST":
         login_form = LoginForm(request.POST)
@@ -25,6 +23,10 @@ def login_view(request):
     return render(request, 'sportcompetition/login.html', {'login_form': login_form})
 
 
+
+@login_required
+def main(request):
+    return render(request, 'sportcompetition/main.html', {})
 
 @login_required
 def member_view(request):

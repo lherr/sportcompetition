@@ -3,11 +3,13 @@
 {% block title %}Sportfestserver-Login{% endblock%}
 
 {% block authForm %}
+<article>
 
 <form method="post" action="">
     {% csrf_token %}
     {{login_form.as_p}}
-    <button type="submit">Login</button>
+    <p><button type="submit">Login</button></p>
 </form>
 
+</article>
 {% endblock %}
